@@ -28,6 +28,7 @@ namespace DatingApp.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +39,8 @@ namespace DatingApp.API
                 app.UseDeveloperExceptionPage();
             }
 
+            // adds a cross browser header to the html page, allows us to reach to another 'site' to get data. 
+            app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseMvc();
         }
     }
