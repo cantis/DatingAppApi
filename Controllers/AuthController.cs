@@ -1,8 +1,9 @@
-using DatingAppApi.Data;
-using DatingAppApi.Models;
+using System.Threading.Tasks;
+using DatingApp.API.Data;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatingAppApi.Controllers
+namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
     public class AuthController: Controller

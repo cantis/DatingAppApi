@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DatingAppApi.Data;
+using DatingApp.API.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatingAppApi.Controllers
+namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
