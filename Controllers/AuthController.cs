@@ -47,13 +47,13 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if(userFromRepo == null)
                 return Unauthorized();
             
             // generate token
-            var tokenHandler= new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("super secret key");
             var tokenDescriptior = new SecurityTokenDescriptor
             {
@@ -65,6 +65,10 @@ namespace DatingApp.API.Controllers
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
+            var token = tokenHandler.CreateToken(tokenDescriptior);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return Ok(new {tokenString});
 
         }
     }
